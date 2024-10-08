@@ -67,8 +67,11 @@
         },
         methods: {
             login(){
-                alert(this.loginForm.loginName )
-                alert(this.loginForm.password )
+                this.$refs.loginForm.validate((valid) => {
+                    if (valid) {
+                        alert('submit!')
+                    }
+                })
             },
             handleInput() {
                 //直接在input事件中处理，防止用户输入汉字
