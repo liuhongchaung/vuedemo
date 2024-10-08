@@ -6,7 +6,7 @@
                  label-position="left"
                  label-width="0px"
                  class="login-page">
-            <h3>系统登录</h3>
+            <h3 class="text-center">系统登录</h3>
             <el-form-item prop="username">
                 <el-input type="text"
                           v-model="ruleForm.username"
@@ -59,6 +59,9 @@
     .login-container {
         width: 100%;
         height: 100%;
+    }
+    .text-center{
+        text-align: center;
     }
     .login-page {
         -webkit-border-radius: 5px;
