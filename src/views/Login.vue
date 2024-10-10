@@ -9,15 +9,15 @@
             <h2 class="text-center">系统登录</h2>
 
             <el-form-item prop="loginName">
-                <el-input :prefix-icon="User" v-model="loginForm.loginName" placeholder="用户名"></el-input>
+                <el-input v-model="loginForm.loginName" placeholder="用户名"></el-input>
             </el-form-item>
 
             <el-form-item prop="password">
-                <el-input :prefix-icon="Lock" type="password" v-model="loginForm.password" placeholder="密码" show-password></el-input>
+                <el-input   type="password" v-model="loginForm.password" placeholder="密码" show-password></el-input>
             </el-form-item>
 
             <el-form-item prop="checkCode">
-                <el-input :prefix-icon="CopyDocument" style="width:45%;" @input="handleInput" v-model="loginForm.checkCode" placeholder="验证码"></el-input>
+                <el-input style="width:45%;" @input="handleInput" v-model="loginForm.checkCode" placeholder="验证码"></el-input>
                 <div>
                    <valid-code @input="getCode"/>
                 </div>
@@ -78,7 +78,7 @@
                             ElMessage.error('验证码错误！');
                             return;
                         }
-                        alert('submit!')
+                        ElMessage.success('登录成功！');
                     }
                 })
             },
