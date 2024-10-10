@@ -6,27 +6,22 @@
                  label-position="left"
                  label-width="0px"
                  class="login-page">
-            <h3 class="text-center">系统登录</h3>
+            <h2 class="text-center">系统登录</h2>
 
             <el-form-item prop="loginName">
-                <el-input type="text"
-                          v-model="loginForm.loginName"
-                          placeholder="用户名"
-                ></el-input>
+                <el-input :prefix-icon="User" v-model="loginForm.loginName" placeholder="用户名"></el-input>
             </el-form-item>
 
             <el-form-item prop="password">
-                <el-input type="password"
-                          v-model="loginForm.password"
-                          placeholder="密码">
-                </el-input>
+                <el-input :prefix-icon="Lock" type="password" v-model="loginForm.password" placeholder="密码" show-password></el-input>
             </el-form-item>
 
             <el-form-item prop="checkCode">
-                <el-input type="checkCode" style="width:45%;" @input="handleInput"
-                          v-model="loginForm.checkCode"
-                          placeholder="验证码">
-                </el-input>
+                <el-input :prefix-icon="CopyDocument" style="width:45%;" @input="handleInput" v-model="loginForm.checkCode" placeholder="验证码"></el-input>
+                <div>
+                   <valid-code @input="getCode"/>
+                </div>
+
             </el-form-item>
 
             <el-form-item prop="role">
@@ -48,15 +43,25 @@
 </template>
 
 <script>
+    import { User } from "@element-plus/icons-vue";
+    import { Lock } from "@element-plus/icons-vue";
+    import { CopyDocument } from "@element-plus/icons-vue";
+    import ValidCode from "../components/ValidCode";
+    import { ElMessage } from 'element-plus'
     export default {
         name: "login",
+        components:{
+            ValidCode
+        },
         data(){
             return{
+                User,Lock,CopyDocument,
+                code:'',//生成的code
                 loginForm: {
                     loginName: '',
                     password: '',
-                    role:'2',
-                    checkCode:'',
+                    role:'2',//权限，1管理员，2普通用户
+                    checkCode:'',//传入的code
                 },
                 rules: {
                     loginName: [{required: true, message: '请输入用户名', trigger: 'blur'}],
@@ -69,6 +74,10 @@
             login(){
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
+                        if (this.loginForm.checkCode != this.code){
+                            ElMessage.error('验证码错误！');
+                            return;
+                        }
                         alert('submit!')
                     }
                 })
@@ -78,6 +87,9 @@
                 this.loginForm.checkCode = this.loginForm.checkCode.replace(/[\u4e00-\u9fa5]/g, '');
                 //不允许输入特殊符号
                 this.loginForm.checkCode = this.loginForm.checkCode.replace(/[^\w\u4E00-\u9FA5]/g, '')
+            },
+            getCode(code){
+                this.code = code;
             }
 
         }
