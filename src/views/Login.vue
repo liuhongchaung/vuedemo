@@ -47,7 +47,6 @@
     import { Lock } from "@element-plus/icons-vue";
     import { CopyDocument } from "@element-plus/icons-vue";
     import ValidCode from "../components/ValidCode";
-    import { ElMessage } from 'element-plus'
     import {post} from "../utils/api";
     export default {
         name: "login",
