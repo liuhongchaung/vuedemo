@@ -84,6 +84,7 @@
                             };
                             post('/user/login',params).then(response =>{
                                 if (response){
+                                    this.$router.replace('/home')
                                     console.log("jiekou",response)
                                 }
                             })
