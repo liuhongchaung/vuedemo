@@ -4,18 +4,17 @@ import router from '../router'
 
 //系统拦截器
 axios.interceptors.response.use(success =>{
-    if (success.status && success.status ===200){
+    if (success.status && success.status ==200){
         //业务逻辑错误
-        if (success.data.code == '500'){
+        if (success.data.code === '500'){
             ElMessage.error(success.data.message);
             return;
-        }else if (success.data.code == '401'){
+        }else if (success.data.code === '401'){
             ElMessage.error(success.data.message);
             router.replace('/login');
             return;
 
-        }
-        else {
+        } else {
             ElMessage.success(success.data.message);
             return success.data;
         }
