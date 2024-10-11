@@ -48,6 +48,7 @@
     import { CopyDocument } from "@element-plus/icons-vue";
     import ValidCode from "../components/ValidCode";
     import { ElMessage } from 'element-plus'
+    import {post} from "../utils/api";
     export default {
         name: "login",
         components:{
@@ -75,10 +76,19 @@
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
                         if (this.loginForm.checkCode != this.code){
-                            ElMessage.error('验证码错误！');
-                            return;
+                            this.$message.error('验证码错误！')
+                        }else {
+                            let params = {
+                                loginName : this.loginForm.loginName,
+                                password : this.loginForm.password,
+                                role : this.loginForm.role,
+                            };
+                            post('/user/login',params).then(response =>{
+                                if (response){
+                                    console.log("jiekou",response)
+                                }
+                            })
                         }
-                        ElMessage.success('登录成功！');
                     }
                 })
             },
