@@ -26,8 +26,8 @@
 
             <el-form-item prop="role">
                 <el-radio-group v-model="loginForm.role" class="radio-margin">
-                    <el-radio value="2">普通用户</el-radio>
                     <el-radio value="1">管理员</el-radio>
+                    <el-radio value="2">普通用户</el-radio>
                 </el-radio-group>
             </el-form-item>
 
@@ -60,7 +60,7 @@
                 loginForm: {
                     loginName: '',
                     password: '',
-                    role:'2',//权限，1管理员，2普通用户
+                    role:'1',//权限，1管理员，2普通用户
                     checkCode:'',//传入的code
                 },
                 rules: {

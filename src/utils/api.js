@@ -20,7 +20,7 @@ axios.interceptors.response.use(success =>{
         }
     }
 },error =>{
-    if (error.status == 404 || error.status == 403 || error.status == 504){
+    if (error.status == 404 || error.status == 403 || error.status == 504 || error.status == 500){
         ElMessage.error('服务器异常，服务被吃了，嘎嘎嘎！！！');
     }
     return;
