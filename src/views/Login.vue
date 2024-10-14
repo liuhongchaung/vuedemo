@@ -32,7 +32,7 @@
             </el-form-item>
 
             <el-form-item style="width:100%;" class="button-margin">
-                <el-button type="primary" style="width:30%;" @click="login">登录</el-button>
+                <el-button :loading="this.loginLoading" type="primary" style="width:30%;" @click="login">登录</el-button>
                 <el-button type="primary" style="width:30%;" >注册</el-button>
             </el-form-item>
 
@@ -57,6 +57,7 @@
             return{
                 User,Lock,CopyDocument,
                 code:'',//生成的code
+                loginLoading: false,//登录loading
                 loginForm: {
                     loginName: '',
                     password: '',
@@ -74,6 +75,7 @@
             login(){
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
+                        this.loginLoading = true;
                         if (this.loginForm.checkCode != this.code){
                             this.$message.error('验证码错误！')
                         }else {
@@ -84,11 +86,12 @@
                             };
                             post('/user/login',params).then(response =>{
                                 if (response){
-                                    this.$router.replace('/home')
-                                    console.log("jiekou",response)
+                                    window.localStorage.setItem('token',response.data.token);
+                                    this.$router.replace('/home');
                                 }
                             })
                         }
+                        this.loginLoading = false;
                     }
                 })
             },

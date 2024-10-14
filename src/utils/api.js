@@ -2,7 +2,18 @@ import axios from 'axios';
 import { ElMessage } from 'element-plus'
 import router from '../router'
 
-//系统拦截器
+//请求拦截器
+axios.interceptors.request.use(config =>{
+    //如果存在token,请求携带token
+    if (window.localStorage.getItem('token')) {
+        config.headers['token'] = window.localStorage.getItem('token');
+    }
+    return config;
+},error => {
+    console.log(error)
+});
+
+//响应拦截器
 axios.interceptors.response.use(success =>{
     if (success.status && success.status ==200){
         //业务逻辑错误
@@ -35,4 +46,13 @@ export const post = (url,params)=>{
         url: `${base}${url}`,
         data: params
     })
-}
+};
+
+//get请求
+export const get = (url,params)=>{
+    return axios({
+        method: 'get',
+        url: `${base}${url}`,
+        data: params
+    })
+};
