@@ -43,19 +43,19 @@
 </template>
 
 <script>
-    import { User } from "@element-plus/icons-vue";
-    import { Lock } from "@element-plus/icons-vue";
-    import { CopyDocument } from "@element-plus/icons-vue";
+    import { User ,Lock, CopyDocument} from "@element-plus/icons-vue";
     import ValidCode from "../components/ValidCode";
     import {post} from "../utils/api";
     export default {
         name: "login",
         components:{
+            //图标
+            User,Lock,CopyDocument,
+            //组件
             ValidCode
         },
         data(){
             return{
-                User,Lock,CopyDocument,
                 code:'',//生成的code
                 loginLoading: false,//登录loading
                 loginForm: {

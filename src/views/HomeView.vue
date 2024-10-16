@@ -11,12 +11,22 @@
           <el-aside width="200px">
             <el-sub-menu index="1">
               <template #title>
-                <location />
+                <el-icon><location /></el-icon>
                 <span>第一级</span>
               </template>
 
-                <el-menu-item index="1-1">第一级-1</el-menu-item>
-                <el-menu-item index="1-2">第一级-2</el-menu-item>
+
+
+              <el-menu-item index="1-1"><el-icon><Setting /></el-icon>第一级-1</el-menu-item>
+              <el-menu-item index="1-2">第一级-2</el-menu-item>
+
+              <el-sub-menu index="1-3">
+                <template #title>
+                  <span>第一级-3</span>
+                </template>
+                <el-menu-item index="1-3-1">第一级-3-1</el-menu-item>
+                <el-menu-item index="1-3-2">第一级-3-2</el-menu-item>
+              </el-sub-menu>
 
             </el-sub-menu>
           </el-aside>
@@ -32,10 +42,12 @@
 </template>
 
 <script>
-
+  import {Location, Setting} from '@element-plus/icons-vue';
 export default {
   name: 'HomeView',
   components: {
-  }
+    //图标
+    Location, Setting
+  },
 }
 </script>
