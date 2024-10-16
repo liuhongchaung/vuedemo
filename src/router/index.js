@@ -1,15 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 
 const routes = [
- /* {
-    path: '/home',
-    name: 'home',
-    component: Home
-  },*/
   {
-    path: '/home',
+    path: '/login',
+    name: '登录页面',
+    component: () => import('../views/Login.vue'),
+  },
+  {
+    path: '/',
     name: '首页',
+    component: () => import('../views/Home.vue'),
+  },
+  {
+    path: '/user',
+    name: '用户管理',
     component: () => import('../views/Home.vue'),
     children:[
         {
@@ -17,23 +21,19 @@ const routes = [
           name: 'test1',
           component: () => import('../views/Test1.vue'),
         },
-      {
+        {
           path: '/test2',
           name: 'test2',
           component: () => import('../views/Test2.vue'),
         },
+        {
+          path: '/test3',
+          name: 'test3',
+          component: () => import('../views/Test3.vue'),
+        },
 
     ]
   },
-  {
-    path: '/',
-    redirect:'/home',
-  },
-  {
-    path: '/login',
-    name: '登录页面',
-    component: () => import('../views/Login.vue')
-  }
 ];
 
 const router = createRouter({

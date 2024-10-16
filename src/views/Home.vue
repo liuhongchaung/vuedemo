@@ -7,17 +7,17 @@
       <!--左侧-->
       <el-container>
         <el-aside width="200px">
-          <el-menu>
+          <el-menu router="true">
 
-            <el-sub-menu index="1">
+            <el-sub-menu>
               <template #title>
                 <el-icon><location/></el-icon>
                 <span>第一级</span>
               </template>
 
 
-              <el-menu-item index="1-1" @click="pushrouter"><el-icon><Setting/></el-icon>第一级-1</el-menu-item>
-              <el-menu-item index="1-2"@click="pushrouter2"><el-icon><Setting/></el-icon>第一级-2</el-menu-item>
+              <el-menu-item index="/test1"><el-icon><Setting/></el-icon>第一级-1</el-menu-item>
+              <el-menu-item index="/test2"><el-icon><Setting/></el-icon>第一级-2</el-menu-item>
 
               <el-sub-menu index="1-3">
                 <template #title>
@@ -30,7 +30,7 @@
 
             </el-sub-menu>
 
-            <el-menu-item index="2"><el-icon><Setting/></el-icon>用户管理</el-menu-item>
+            <el-menu-item index="/test3"><el-icon><Setting/></el-icon>用户管理</el-menu-item>
 
           </el-menu>
         </el-aside>
