@@ -7,29 +7,46 @@ const routes = [
     component: () => import('../views/Login.vue'),
   },
   {
-    path: '/',
+    path: '/home',
     name: '首页',
+    icon: 'location',
     component: () => import('../views/Home.vue'),
-  },
-  {
-    path: '/user',
-    name: '用户管理',
-    component: () => import('../views/Home.vue'),
-    showMenu:true,
     children:[
+        {
+          path: '/user',
+          name: '用户管理',
+          icon: 'location',
+          showMenu: true,
+          component: () => import('../views/user/User.vue'),
+        },
         {
           path: '/test1',
           name: 'test1',
+          icon: 'setting',
+          showMenu: true,
           component: () => import('../views/Test1.vue'),
+          children:[
+            {
+              path: '/test1',
+              name: '测试1',
+              icon: 'setting',
+              showMenu: true,
+              component: () => import('../views/Test1.vue'),
+            }
+          ]
         },
         {
           path: '/test2',
           name: 'test2',
+          icon: 'location',
+          showMenu: true,
           component: () => import('../views/Test2.vue'),
         },
         {
           path: '/test3',
           name: 'test3',
+          icon: 'location',
+          showMenu: true,
           component: () => import('../views/Test3.vue'),
         },
 

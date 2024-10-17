@@ -43,14 +43,11 @@
 </template>
 
 <script>
-    import { User ,Lock, CopyDocument} from "@element-plus/icons-vue";
     import ValidCode from "../components/ValidCode";
     import {post} from "../utils/api";
     export default {
         name: "login",
         components:{
-            //图标
-            User,Lock,CopyDocument,
             //组件
             ValidCode
         },
