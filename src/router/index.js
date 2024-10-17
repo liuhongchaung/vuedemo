@@ -15,6 +15,7 @@ const routes = [
     path: '/user',
     name: '用户管理',
     component: () => import('../views/Home.vue'),
+    showMenu:true,
     children:[
         {
           path: '/test1',

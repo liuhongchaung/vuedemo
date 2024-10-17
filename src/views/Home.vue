@@ -9,7 +9,7 @@
         <el-aside width="200px">
           <el-menu router>
             <div v-for="item in this.routerItems">
-              <el-sub-menu v-if="item.children" :index="item.path">
+              <el-sub-menu v-if="item.children" :index="item.path" v-show="item.showMenu">
                 <template #title>
                   <el-icon><location/></el-icon>
                   <span>{{item.name}}</span>
@@ -21,7 +21,7 @@
 
               </el-sub-menu>
 
-              <el-menu-item v-else :index="item.path">
+              <el-menu-item v-else :index="item.path" v-show="item.showMenu">
                 {{item.name}}
               </el-menu-item>
 
