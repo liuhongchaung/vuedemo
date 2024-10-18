@@ -55,7 +55,7 @@ export default {
       //拿到首页子路由
       if ('/home'=== route.path){
         this.routerItems = route.children;
-        console.log("路由",this.routerItems)
+        console.log("首页路由",this.routerItems)
         return;
       }
     }
