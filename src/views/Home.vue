@@ -2,7 +2,22 @@
   <div class="common-layout">
     <el-container>
       <!--头部-->
-      <el-header>Header</el-header>
+      <el-header class="homeHeader">
+        <div class="tittle">后台管理系统</div>
+        <el-dropdown >
+          <span class="dropdown-span">
+            <el-avatar class="photo" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>你好，{{userInfo.userName}}！
+            <!--<el-icon class="el-icon&#45;&#45;right"><arrow-down /></el-icon>-->
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="a">个人中心</el-dropdown-item>
+              <el-dropdown-item command="b">设置</el-dropdown-item>
+              <el-dropdown-item command="c">注销登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </el-header>
 
       <!--左侧-->
       <el-container>
@@ -63,6 +78,7 @@ export default {
   data(){
     return{
       routerItems:[],
+      userInfo : JSON.parse(window.localStorage.getItem('userInfo')),
     }
   },
   methods:{
@@ -70,3 +86,25 @@ export default {
   }
 }
 </script>
+<style>
+  .homeHeader{
+    background: #409eff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
+  .tittle{
+    font-size: 30px;
+    font-family: 楷体;
+    color: white;
+  }
+  .photo{
+    margin-right: 10px;
+  }
+  .dropdown-span:focus {
+    outline: none;/*隐藏外边框*/
+    cursor: pointer;/*鼠标变小手*/
+  }
+</style>
