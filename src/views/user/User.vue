@@ -2,7 +2,7 @@
     <!--搜索框-->
     <div>
         <el-row :gutter="20">
-            <el-col :span="6" :offset="2" >
+            <el-col :span="6" :offset="3" >
                 用户姓名：<el-input v-model="this.selectUser.userName" style="width: 60%"/>
             </el-col>
             <el-col :span="6">
@@ -12,15 +12,16 @@
                 <el-button type="primary" @click="selectUsers">查询</el-button>
             </el-col>
         </el-row>
-        <!--分割线-->
-        <el-divider border-style="double" />
+
+        <el-button type="primary" @click="selectUsers">新增用户</el-button>
+
     </div>
     <!--表格-->
     <el-table :data="tableData" style="width: 100%" border
               :cell-style="{'text-align':'center'}"
               :header-cell-style="{'text-align':'center','height':'60px','background':'#F6F9FC'}">
         <el-table-column label="序号" type="index" width="55px"/>
-        <el-table-column label="用户姓名" prop="name" />
+        <el-table-column label="用户姓名" prop="userName" />
         <el-table-column label="登录账号" prop="loginName" />
         <el-table-column label="密码" prop="password" />
         <el-table-column label="权限" prop="role">
@@ -29,7 +30,7 @@
                 <span v-else-if="scope.row.role ==='2'">普通用户</span>
             </template>
         </el-table-column>
-        <el-table-column label="创建日期" prop="date" />
+        <el-table-column label="创建日期" prop="createTime" />
         <el-table-column label="是否有效" prop="valid">
             <template #default="scope">
                 <el-switch v-model="scope.row.valid" inline-prompt
@@ -64,6 +65,8 @@
 </template>
 
 <script>
+    import {post} from "../../utils/api";
+
     export default {
     name: 'User',
     mounted(){
@@ -82,119 +85,7 @@
             },
             pageNum:1,
             pageSize:20,
-            tableData:[
-                {
-                    id:'',
-                    date: '2016-05-03',
-                    name: 'Tom',
-                    loginName: 'tom',
-                    password: '123456',
-                    role: '1',
-                    valid: '1',
-                },
-                {
-                    id:'',
-                    date: '2016-05-02',
-                    name: 'John',
-                    loginName: 'john',
-                    password: '123456',
-                    role: '1',
-                    valid: '1',
-
-                },
-                {
-                    date: '2016-05-04',
-                    name: 'Morgan',
-                    loginName: 'morgan',
-                    password: '123456',
-                    role: '1',
-                    valid: '1',
-
-                },
-                {
-                    date: '2016-05-01',
-                    name: 'Jessy',
-                    loginName: 'jessy',
-                    password: '123456',
-                    role: '2',
-                    valid: '2',
-
-                },
-                {
-                    id:'',
-                    date: '2016-05-03',
-                    name: 'Tom',
-                    loginName: 'tom',
-                    password: '123456',
-                    role: '1',
-                    valid: '1',
-                },
-                {
-                    id:'',
-                    date: '2016-05-02',
-                    name: 'John',
-                    loginName: 'john',
-                    password: '123456',
-                    role: '1',
-                    valid: '1',
-
-                },
-                {
-                    date: '2016-05-04',
-                    name: 'Morgan',
-                    loginName: 'morgan',
-                    password: '123456',
-                    role: '1',
-                    valid: '1',
-
-                },
-                {
-                    date: '2016-05-01',
-                    name: 'Jessy',
-                    loginName: 'jessy',
-                    password: '123456',
-                    role: '2',
-                    valid: '2',
-
-                },
-                {
-                    id:'',
-                    date: '2016-05-03',
-                    name: 'Tom',
-                    loginName: 'tom',
-                    password: '123456',
-                    role: '1',
-                    valid: '1',
-                },
-                {
-                    id:'',
-                    date: '2016-05-02',
-                    name: 'John',
-                    loginName: 'john',
-                    password: '123456',
-                    role: '1',
-                    valid: '1',
-
-                },
-                {
-                    date: '2016-05-04',
-                    name: 'Morgan',
-                    loginName: 'morgan',
-                    password: '123456',
-                    role: '1',
-                    valid: '1',
-
-                },
-                {
-                    date: '2016-05-01',
-                    name: 'Jessy',
-                    loginName: 'jessy',
-                    password: '123456',
-                    role: '2',
-                    valid: '2',
-
-                },
-            ]
+            tableData:[]
         }
     },
     methods:{
@@ -208,7 +99,16 @@
             console.log('变更有效',valid)
         },
         selectUsers(){
-            console.log('变更有效',this.selectUser)
+            let params = {
+                loginName : this.selectUser.loginName,
+                userName : this.selectUser.userName,
+            };
+            post('/user/getAllUser',params).then(response =>{
+                if (response){
+                    this.tableData = response.data;
+                }
+            })
+            console.log('查询',this.selectUser)
 
         }
     }

@@ -4,11 +4,15 @@
       <!--头部-->
       <el-header class="homeHeader">
         <div class="tittle">后台管理系统</div>
-        <el-dropdown >
+        <div v-show="!this.showDropdown">
+          <a href="/login">去登陆</a>
+        </div>
+        <el-dropdown v-show="this.showDropdown">
           <span class="dropdown-span">
-            <el-avatar class="photo" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>你好，{{userInfo.userName}}！
-            <!--<el-icon class="el-icon&#45;&#45;right"><arrow-down /></el-icon>-->
+          <el-avatar class="photo" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>你好，{{userInfo.userName}}！
+            <!--<el-icon class="el-icon--right"><arrow-down /></el-icon>-->
           </span>
+
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="a">个人中心</el-dropdown-item>
@@ -16,6 +20,7 @@
               <el-dropdown-item command="c">注销登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
+
         </el-dropdown>
       </el-header>
 
@@ -51,6 +56,11 @@
 
         <!--右侧-->
         <el-main>
+          <div >
+            我是页签
+            <el-divider/>
+          </div>
+          <!--分割线-->
           <router-view/>
         </el-main>
 
@@ -64,6 +74,13 @@
 export default {
   name: 'Home',
   mounted() {
+    let userInfo = window.localStorage.getItem('userInfo');
+    if (userInfo){
+      this.userInfo = JSON.parse(userInfo);
+      this.showDropdown = true;
+    }else {
+      this.showDropdown = false;
+    }
     let routes = useRouter().options.routes;
     for (let index in routes) {
       let route = routes[index];
@@ -78,7 +95,10 @@ export default {
   data(){
     return{
       routerItems:[],
-      userInfo : JSON.parse(window.localStorage.getItem('userInfo')),
+      userInfo : {
+        userName : '',
+      },
+      showDropdown:true,
     }
   },
   methods:{
@@ -106,5 +126,8 @@ export default {
   .dropdown-span:focus {
     outline: none;/*隐藏外边框*/
     cursor: pointer;/*鼠标变小手*/
+  }
+  a{
+    text-decoration: none;
   }
 </style>

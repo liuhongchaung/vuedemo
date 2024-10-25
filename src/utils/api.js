@@ -26,7 +26,9 @@ axios.interceptors.response.use(success =>{
             return;
 
         } else {
-            ElMessage.success(success.data.message);
+            if (success.data.message){
+                ElMessage.success(success.data.message);
+            }
             return success.data;
         }
     }
