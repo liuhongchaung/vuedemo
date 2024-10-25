@@ -105,7 +105,9 @@
             };
             post('/user/getAllUser',params).then(response =>{
                 if (response){
-                    this.tableData = response.data;
+                    this.tableData = response.data.list;
+                    this.pageNum = 1;
+                    this.pageSize = 20;
                 }
             })
             console.log('查询',this.selectUser)
