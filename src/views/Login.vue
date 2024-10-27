@@ -85,7 +85,6 @@
                                 if (response){
                                     window.localStorage.setItem('token',response.data.token);
                                     window.localStorage.setItem('userInfo',JSON.stringify(response.data));
-                                    console.log(response.data)
                                     this.$router.replace('/home');
                                 }
                             })

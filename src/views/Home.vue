@@ -9,8 +9,8 @@
         </div>
         <el-dropdown v-show="this.showDropdown">
           <span class="dropdown-span">
-          <el-avatar class="photo" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>你好，{{userInfo.userName}}！
-            <!--<el-icon class="el-icon--right"><arrow-down /></el-icon>-->
+          <!--<el-avatar class="photo" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>-->
+            你好，{{userInfo.userName}}！
           </span>
 
           <template #dropdown>
@@ -27,7 +27,7 @@
       <!--左侧-->
       <el-container>
         <el-aside width="200px">
-          <el-menu router>
+          <el-menu router @select="">
 
             <div v-for="item in this.routerItems">
 
@@ -57,7 +57,12 @@
         <!--右侧-->
         <el-main>
           <div >
-            我是页签
+            <!-- 面包屑 -->
+            <el-breadcrumb separator=">">
+              <el-breadcrumb-item :to="{path:'/home'}">首页</el-breadcrumb-item>
+              <el-breadcrumb-item>{{this.pathName}}</el-breadcrumb-item>
+              <!--<el-breadcrumb-item :to="item.path" v-for="item in breadList" :key="item.id">{{ item.meta.title }}</el-breadcrumb-item>-->
+            </el-breadcrumb>
             <el-divider/>
           </div>
           <!--分割线-->
@@ -94,6 +99,7 @@ export default {
   },
   data(){
     return{
+      pathName: '',
       routerItems:[],
       userInfo : {
         userName : '',
@@ -102,7 +108,14 @@ export default {
     }
   },
   methods:{
-
+    menuSelect(value){
+      console.log('111',this.$router.currentRoute.value.name)
+      if (value === '/home'){
+        this.pathName = '';
+      }else {
+        this.pathName = this.$router.currentRoute._value.name;
+      }
+    },
   }
 }
 </script>
