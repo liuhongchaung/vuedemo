@@ -7,7 +7,7 @@
         <div v-show="!this.showDropdown">
           <a href="/login">去登陆</a>
         </div>
-        <el-dropdown v-show="this.showDropdown">
+        <el-dropdown v-show="this.showDropdown" @command="handleCommand">
           <span class="dropdown-span">
           <!--<el-avatar class="photo" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>-->
             你好，{{userInfo.userName}}！
@@ -17,7 +17,7 @@
             <el-dropdown-menu>
               <el-dropdown-item command="a">个人中心</el-dropdown-item>
               <el-dropdown-item command="b">设置</el-dropdown-item>
-              <el-dropdown-item command="c">注销登录</el-dropdown-item>
+              <el-dropdown-item command="logout">注销登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
 
@@ -27,7 +27,7 @@
       <!--左侧-->
       <el-container>
         <el-aside width="200px">
-          <el-menu router @select="">
+          <el-menu router>
 
             <div v-for="item in this.routerItems">
 
@@ -59,13 +59,14 @@
           <div >
             <!-- 面包屑 -->
             <el-breadcrumb separator=">">
-              <el-breadcrumb-item :to="{path:'/home'}">首页</el-breadcrumb-item>
-              <el-breadcrumb-item>{{this.pathName}}</el-breadcrumb-item>
-              <!--<el-breadcrumb-item :to="item.path" v-for="item in breadList" :key="item.id">{{ item.meta.title }}</el-breadcrumb-item>-->
+              <el-breadcrumb-item  v-for=" (item,index) in this.$route.matched " :key="index" :to="item.path">{{ item.name }}</el-breadcrumb-item>
             </el-breadcrumb>
+            <!--分割线-->
             <el-divider/>
           </div>
-          <!--分割线-->
+          <div v-if="this.$route.path ==='/home'">
+            欢迎使用后台管理系统~
+          </div>
           <router-view/>
         </el-main>
 
@@ -76,6 +77,7 @@
 
 <script>
   import {useRouter} from "vue-router";
+  import {get} from "../utils/api";
 export default {
   name: 'Home',
   mounted() {
@@ -108,14 +110,20 @@ export default {
     }
   },
   methods:{
-    menuSelect(value){
-      console.log('111',this.$router.currentRoute.value.name)
-      if (value === '/home'){
-        this.pathName = '';
-      }else {
-        this.pathName = this.$router.currentRoute._value.name;
+    handleCommand(command){
+      if(command === 'logout'){
+        this.$confirm('此操作将注销登录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          type: 'warning'
+        }).then(() => {
+          window.localStorage.removeItem('userInfo');
+          window.localStorage.removeItem('token');
+          this.$router.replace('/login');
+        }).catch(() => {
+        });
       }
-    },
+
+    }
   }
 }
 </script>
